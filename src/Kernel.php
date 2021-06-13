@@ -2,10 +2,12 @@
 
 namespace App;
 
+use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+
 
 class Kernel extends BaseKernel
 {
@@ -35,4 +37,5 @@ class Kernel extends BaseKernel
             $routes->import('../config/{routes}.php');
         }
     }
+   
 }
