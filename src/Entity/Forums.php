@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ForumsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ForumsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -35,6 +36,20 @@ class Forums
      */
     private $souscategories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Posts", mappedBy="theForum")
+     */
+    private $posts;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="forums")
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+    */
+    private $user;
+
+    public function __construct() {
+        $this->user = new ArrayCollection();
+    }
 
 
     public function getId(): ?int {
@@ -75,6 +90,31 @@ class Forums
     public function setSouscategories($souscategories)
     {
         $this->souscategories = $souscategories;
+
+        return $this;
+    }
+
+ 
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
+
+        return $this;
+    }
+ 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -1,17 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>{{ forum.title }}</h1>
-<a href="{{ path('New_Forum', {'id': forum.id }) }}" class="btn btn-primary">Créer un sujet</a>
 
-<div class="card m-3">
+{% if forum %}
+<h1>{{ forum.title }}</h1>
+{% if not app.user %}
+<p>Veuillez vous connectez pour créer un Sujet</p>
+{% else %}
+<a href="{{ path('New_Forum', {'id': forum.id }) }}" class="btn btn-primary">Créer un sujet</a>
+{% endif %}
+
+
 {% for f in forum.forums %}
+<div class="card m-3">
     <div class="card-body">
         <h5>{{ f.title }}</h5>
-        <h5>Ecrit le {{ f.createdAt | date('d/m/Y') }} à {{ f.createdAt | date('H:i') }} </h5>
+        </div>
+        <div style="display:flex;" class="p-2">
+            <h5 class="m-2 text-muted">Ecrit le {{ f.createdAt | date('d/m/Y') }} à {{ f.createdAt | date('H:i') }} </h5>
+            <p class="m-2 text-muted"> écrit par : {{ f.user.username }}</p>
+        </div>
+        <div class="m-2">
+            <a class="btn btn-info" href="{{ path('forums_page', {'id': f.id }) }}">Voir le forum</a>
+        {% if not app.user %}
+        {% elseif f.user.admin == null %}
+            <a href="{{ path('delete_forums', {'id': f.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+        {% endif %}
+        </div>
     </div>
 </div>
 {% endfor %}
+{% endif %}
 {% endblock %}
 
 

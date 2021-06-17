@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -59,6 +60,21 @@ class User implements UserInterface{
      * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas entrez le même mot de passe")
      */
     public $confirm_password;
+
+
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Posts", mappedBy="user")
+     */
+    private $posts;
+
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Forums", mappedBy="user")
+     */
+    private $forums;
+
+    public function __construct() {
+        $this->posts = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -133,4 +149,35 @@ class User implements UserInterface{
         return $this->username;
     }
 
+    /**
+     * Get the value of posts
+     */ 
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Set the value of posts
+     *
+     * @return  self
+     */ 
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
+
+        return $this;
+    }
+ 
+    public function getForums()
+    {
+        return $this->forums;
+    }
+
+    public function setForums($forums)
+    {
+        $this->forums = $forums;
+
+        return $this;
+    }
 }

@@ -29,12 +29,18 @@ class CategorieController extends AbstractController
      * @Route("/forum/{id}", name="souscategories")
      */ 
      public function forum($id) {
-         $repo = $this->getDoctrine()->getRepository(SousCategories::class);
-         $forum = $repo->find($id);
-        return $this->render("accueil/forum.html.twig", [
+            $repo = $this->getDoctrine()->getRepository(SousCategories::class);
+            $forum = $repo->find($id);
+            return $this->render("accueil/forum.html.twig", [
             'forum' => $forum
         ]);
     }
 
+    /**
+     * @Route("/staff", name="staff_page")
+     */
+    public function staff(){
+        return $this->render("staff/index.html.twig");
+    }
 
 }

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+<h1>Ajoutez un nouveau commentaire</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.content, {'label' : 'le contenu', 'attr': {'placeholder': 'Contenu du message...'}})}}
+    {{ form_row(form.brochure) }}
+    {% if not app.user %}
+    <p>Veuillez vous connectez pour publier un message</p>
+    {% else %}
+    <button type="submit" class="btn btn-success">Ajoutez votre réponse</button>
+    {% endif %}
+{{ form_end(form) }}
+{% endblock %}

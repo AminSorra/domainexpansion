@@ -60,4 +60,9 @@ class AccountController extends AbstractController {
         ]);
     }
 
+    // public function Users() {
+    //     $rep = $this->getDoctrine()->getRepository(User::class);
+    //     $theUser = $rep->findAll();
+    // }
+
 }
